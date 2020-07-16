@@ -1,90 +1,25 @@
 <html>
-    <head>
-        <title>acme grid maker</title>
-        <link href="style.css" rel="stylesheet" type="text/css" />
-
-    </head>
-    <body>
-        <div class='container'>
-            <h1>Acme Grid Maker</h1>
-            <div>
-                <form id="form">
-                    <input id="rowNum" type="number" placeholder="rows"><br>
-                    <input id="columnNum" type="number" placeholder="columns"><br>
-                    <button id="grid-button" type="button" value="Make Grid">Make Grid</button>
-                </form>
-            </div>
-            <div class="grid"><!--multipleRows are added in--></div>
-            <div class="showIdx"></div>
-        </div>
-    </body>
-    <script>
-        const masterGrid = document.querySelector('.grid');
-        const IdxContent = document.querySelector('.showIdx');
-        const gridButton = document.querySelector('button');
-        //const container = document.querySelector('.container');
-
-        //click event for making a grid
-        gridButton.addEventListener('click', () => {
-            //make the previous grid disappear
-            if(masterGrid.style.display){
-                masterGrid.style.display = "none";
-            }
-
-            let rowNum = parseInt(document.getElementById('rowNum').value);
-            let colNum = parseInt(document.getElementById('columnNum').value);
-            
-            if(validation()){
-                //add row by row, each row is a new div
-                for(let j = 0; j < rowNum; j++){
-                    const eachRow = document.createElement('div');
-                    //make one single row with cells.
-                    for(let i = 0; i < colNum; i++){
-                        const cell = document.createElement('div');
-                        cell.classList.add('singleCell');
-                        cell.setAttribute('id',i);
-                        eachRow.appendChild(cell);
-                    }
-                    
-                    eachRow.classList.add('singleRow');
-                    eachRow.setAttribute('id',j);
-                    masterGrid.appendChild(eachRow);
-                }      
-            }
-
-            function validation(){
-                let rowNum = parseInt(document.getElementById('rowNum').value);
-                let colNum = parseInt(document.getElementById('columnNum').value);
-
-                if(typeof rowNum !== 'number' || rowNum < 1 || rowNum > 50){
-                    alert('rows must be between 1 and 50');
-                    return false;
-                }else if(typeof colNum !== 'number' || colNum < 1 || colNum > 50){
-                    alert("columns must be between 1 and 50");
-                    return false;
-                }else{
-                    return true;
-                }
-            }
-        })
-
-        //add click event on class "grid", create rIdx and cIdx
-        masterGrid.addEventListener('click', (ev) => {
-            //change selected cell color
-            console.log(ev.target.className);
-            //ev.target.tagName.style['background-color'] = blue;
-            ev.stopPropagation();
-            //create rIdx and cIdx
-            const indexContent = document.createElement('div');
-            indexContent.innerHTML = 'rIdx: ' + ev.target.parentNode.id + ' cIdx: ' + ev.target.id;
-            IdxContent.appendChild(indexContent);
-        })
-        
-        /*
-        TO DO:
-        - make selected cell blue
-        - make previous IndexContent event disappear when click
-        - make input alert appear in the form.
-        */
-    </script>
+  <head>
+    <title>acme grid maker</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Acme Grid Maker</h1>
+      <div>
+        <form id="form">
+          <input id="rowNum" type="number" placeholder="rows" /><br />
+          <div id="row-alert"></div>
+          <input id="columnNum" type="number" placeholder="columns" /><br />
+          <div id="col-alert"></div>
+          <button id="grid-button" type="button" value="Make Grid">
+            Make Grid
+          </button>
+        </form>
+      </div>
+      <div class="grid"><!--multipleRows are added in--></div>
+      <div class="showIdx"></div>
+    </div>
+  </body>
+  <script type="text/javascript" src="script.js"></script>
 </html>
